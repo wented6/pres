@@ -7,6 +7,7 @@ const YouTube = require('simple-youtube-api');
 const youtube = new YouTube("AIzaSyAdORXg7UZUo7sePv97JyoDqtQVi3Ll0b8");
 const queue = new Map();
 const client = new Discord.Client();
+const devs = ['521341978659651596','286926707531841536','281424175271510016','408853086237622273','471755994486013953'];  
 /*
 البكجآت
 npm install discord.js
@@ -39,8 +40,7 @@ client.on('message', async msg => { // eslint-disable-line
 	command = command.slice(prefix.length)
   
 	if (command === `play`) {
-    if(!message.member.hasPermission('ADMINISTRATOR')) return
-  
+    if (!devs.includes(msg.author.id)) return;  
 
 		const voiceChannel = msg.member.voiceChannel;
 		if (!voiceChannel) return msg.channel.send('يجب توآجد حضرتك بروم صوتي .');
@@ -104,16 +104,14 @@ ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 			return handleVideo(video, msg, voiceChannel);
 		}  
 	} else if (command === `skip`) {
-    if(!message.member.hasPermission('ADMINISTRATOR')) return
-  
+    if (!devs.includes(msg.author.id)) return;  
 
 		if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
 		if (!serverQueue) return msg.channel.send('لا يتوفر مقطع لتجآوزه');
 		serverQueue.connection.dispatcher.end('تم تجآوز هذآ المقطع');
 		return undefined;
 	} else if (command === `stop`) {  
-    if(!message.member.hasPermission('ADMINISTRATOR')) return
-  
+    if (!devs.includes(msg.author.id)) return;  
 
 		if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
 		if (!serverQueue) return msg.channel.send('لا يتوفر مقطع لإيقآفه');
@@ -121,8 +119,7 @@ ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 		serverQueue.connection.dispatcher.end('تم إيقآف هذآ المقطع');
 		return undefined;
 	} else if (command === `vol`) {
-    if(!message.member.hasPermission('ADMINISTRATOR')) return
-  
+    if (!devs.includes(msg.author.id)) return;  
 
 		if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
 		if (!serverQueue) return msg.channel.send('لا يوجد شيء شغآل.');
@@ -131,16 +128,14 @@ ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 		serverQueue.connection.dispatcher.setVolumeLogarithmic(args[1] / 50);
 		return msg.channel.send(`:speaker: تم تغير الصوت الي **${args[1]}**`);
 	} else if (command === `np`) {
-    if(!message.member.hasPermission('ADMINISTRATOR')) return
-  
+    if (!devs.includes(msg.author.id)) return;  
 
 		if (!serverQueue) return msg.channel.send('لا يوجد شيء حالي ف العمل.');
 		const embedNP = new Discord.RichEmbed()
 	.setDescription(`:notes: الان يتم تشغيل : **${serverQueue.songs[0].title}**`)
 		return msg.channel.sendEmbed(embedNP);
 	} else if (command === `queue`) {
-    if(!message.member.hasPermission('ADMINISTRATOR')) return
-  
+    if (!devs.includes(msg.author.id)) return;  
 
 		  
 		if (!serverQueue) return msg.channel.send('لا يوجد شيء حالي ف العمل.');
@@ -239,10 +234,11 @@ function play(guild, song) {
 	serverQueue.textChannel.send(`بدء تشغيل : **${song.title}**`);
 }  
 
-const adminprefix = "#";  
+const adminprefix = "##";  
+
 client.on('message', message => {  
   var argresult = message.content.split(` `).slice(1).join(' ');  
-  if(!message.member.hasPermission('ADMINISTRATOR')) return  
+    if (!devs.includes(message.author.id)) return;  
     
 if (message.content.startsWith(adminprefix + 's')) {  
   client.user.setGame(argresult);
