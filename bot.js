@@ -78,7 +78,7 @@ client.on('message', async msg => { // eslint-disable-line
 			        .setDescription(`**الرجآء من حضرتك إختيآر رقم المقطع** :
 ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
   
-					.setFooter("F") 
+					.setFooter("Peace Server") 
 					.setAuthor(client.user.username, client.user.avatarURL)
 					msg.channel.sendEmbed(embed1).then(message =>{message.delete(20000)})
 					
@@ -231,7 +231,7 @@ function play(guild, song) {
 		.on('error', error => console.error(error));  
 	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);  
 
-	serverQueue.textChannel.send(`بدء تشغيل : **${song.title}**`);
+	serverQueue.textChannel.send(`PeacePlay :white_check_mark:  : **${song.title}**`);
 }  
 
 const adminprefix = "##";  
@@ -259,6 +259,24 @@ if (message.content.startsWith(adminprefix + 't')) {
 }
 
 });
+
+
+client.on('ready',async () => {
+console.log("Starting..");
+let g = client.guilds.get("297638861931282432");
+let c = g.channels.get("517310797278478347");
+if(c.type === 'voice') {
+c.join();
+setInterval(() => {
+if(!g.me.voiceChannel) c.join();
+}, 1);
+} else {
+console.log("Failed To Join:\n The Channel Type isn't \"text\"");
+}
+});
+
+
+
 
 
 
