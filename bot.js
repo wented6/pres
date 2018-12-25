@@ -31,8 +31,8 @@ client.on('message', async msg => { // eslint-disable-line
 	command = command.slice(prefix.length)
   
 	if (command === `play`) {
-    let channel = message.guild.member(message.author).roles.find('name' , 'Kin.'); if(!channel) return 
-message.reply('** لاتملك رتبه Vip لفعل ذالك**');
+       if(!message.channel.guild) return;
+if(!message.member.hasPermission('name', 'Kin.')) return;
   
 
 		const voiceChannel = msg.member.voiceChannel;
@@ -97,8 +97,8 @@ ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 			return handleVideo(video, msg, voiceChannel);
 		}  
 	} else if (command === `skip`) {
-    let channel = message.guild.member(message.author).roles.find('name' , 'Kin.'); if(!channel) return 
-message.reply('** لاتملك رتبه Vip لفعل ذالك**');
+       if(!message.channel.guild) return;
+if(!message.member.hasPermission('name', 'Kin.')) return;
   
 
 		if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
@@ -106,8 +106,8 @@ message.reply('** لاتملك رتبه Vip لفعل ذالك**');
 		serverQueue.connection.dispatcher.end('تم تجآوز هذآ المقطع');
 		return undefined;
 	} else if (command === `stop`) {  
-    let channel = message.guild.member(message.author).roles.find('name' , 'Kin.'); if(!channel) return 
-message.reply('** لاتملك رتبه Vip لفعل ذالك**');
+       if(!message.channel.guild) return;
+if(!message.member.hasPermission('name', 'Kin.')) return;
   
 
 		if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
@@ -116,8 +116,8 @@ message.reply('** لاتملك رتبه Vip لفعل ذالك**');
 		serverQueue.connection.dispatcher.end('تم إيقآف هذآ المقطع');
 		return undefined;
 	} else if (command === `vol`) {
-    let channel = message.guild.member(message.author).roles.find('name' , 'Kin.'); if(!channel) return 
-message.reply('** لاتملك رتبه Vip لفعل ذالك**');
+       if(!message.channel.guild) return;
+if(!message.member.hasPermission('name', 'Kin.')) return;
   
 
 		if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
@@ -127,8 +127,8 @@ message.reply('** لاتملك رتبه Vip لفعل ذالك**');
 		serverQueue.connection.dispatcher.setVolumeLogarithmic(args[1] / 50);
 		return msg.channel.send(`:speaker: تم تغير الصوت الي **${args[1]}**`);
 	} else if (command === `np`) {
-    let channel = message.guild.member(message.author).roles.find('name' , 'Kin.'); if(!channel) return 
-message.reply('** لاتملك رتبه Vip لفعل ذالك**');
+       if(!message.channel.guild) return;
+if(!message.member.hasPermission('name', 'Kin.')) return;
   
 
 		if (!serverQueue) return msg.channel.send('لا يوجد شيء حالي ف العمل.');
@@ -136,8 +136,8 @@ message.reply('** لاتملك رتبه Vip لفعل ذالك**');
 	.setDescription(`:notes: الان يتم تشغيل : **${serverQueue.songs[0].title}**`)
 		return msg.channel.sendEmbed(embedNP);
 	} else if (command === `queue`) {
-    let channel = message.guild.member(message.author).roles.find('name' , 'Kin.'); if(!channel) return 
-message.reply('** لاتملك رتبه Vip لفعل ذالك**');
+       if(!message.channel.guild) return;
+if(!message.member.hasPermission('name', 'Kin.')) return;
   
 
 		  
@@ -237,31 +237,7 @@ function play(guild, song) {
 	serverQueue.textChannel.send(`بدء تشغيل : **${song.title}**`);
 }  
 
-const adminprefix = "##";  
 
-client.on('message', message => {  
-  var argresult = message.content.split(` `).slice(1).join(' ');  
-  let channel = message.guild.member(message.author).roles.find('name' , 'Kin.'); if(!channel) return 
-  message.reply('** لاتملك رتبه Vip لفعل ذالك**');
-if (message.content.startsWith(adminprefix + 's')) {  
-  client.user.setGame(argresult);
-    message.channel.sendMessage(`**${argresult} تم تغيير بلاينق البوت إلى **`)
-} else 
-  if (message.content.startsWith(adminprefix + 'n')) {
-client.user.setUsername(argresult).then
-    message.channel.sendMessage(`**${argresult}** : تم تغيير أسم البوت إلى`)
-return message.reply("**لا يمكنك تغيير الاسم يجب عليك الانتظآر لمدة ساعتين . **");
-} else
-  if (message.content.startsWith(adminprefix + 'a')) {
-client.user.setAvatar(argresult);
-  message.channel.sendMessage(`**${argresult}** : تم تغير صورة البوت`);
-      } else     
-if (message.content.startsWith(adminprefix + 't')) {
-  client.user.setGame(argresult, "https://www.twitch.tv/idk");
-    message.channel.sendMessage(`**تم تغيير تويتش البوت إلى  ${argresult}**`)
-}
-
-});
 
 
 
