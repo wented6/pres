@@ -241,8 +241,8 @@ const adminprefix = "##";
 
 client.on('message', message => {  
   var argresult = message.content.split(` `).slice(1).join(' ');  
-    if (!devs.includes(message.author.id)) return;  
-    
+  let channel = message.guild.member(message.author).roles.find('name' , 'Kin.'); if(!channel) return 
+  message.reply('** لاتملك رتبه Vip لفعل ذالك**');
 if (message.content.startsWith(adminprefix + 's')) {  
   client.user.setGame(argresult);
     message.channel.sendMessage(`**${argresult} تم تغيير بلاينق البوت إلى **`)
