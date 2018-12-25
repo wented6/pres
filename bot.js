@@ -7,16 +7,7 @@ const YouTube = require('simple-youtube-api');
 const youtube = new YouTube("AIzaSyAdORXg7UZUo7sePv97JyoDqtQVi3Ll0b8");
 const queue = new Map();
 const client = new Discord.Client();
-const devs = ['521341978659651596','286926707531841536','281424175271510016','408853086237622273','471755994486013953'];  
-/*
-البكجآت
-npm install discord.js
-npm install ytdl-core
-npm install get-youtube-id
-npm install youtube-info
-npm install simple-youtube-api
-npm install queue
-*/
+
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -40,7 +31,9 @@ client.on('message', async msg => { // eslint-disable-line
 	command = command.slice(prefix.length)
   
 	if (command === `play`) {
-    if (!devs.includes(msg.author.id)) return;  
+    let channel = message.guild.member(message.author).roles.find('name' , 'Kin.'); if(!channel) return 
+message.reply('** لاتملك رتبه Vip لفعل ذالك**');
+  
 
 		const voiceChannel = msg.member.voiceChannel;
 		if (!voiceChannel) return msg.channel.send('يجب توآجد حضرتك بروم صوتي .');
@@ -78,7 +71,7 @@ client.on('message', async msg => { // eslint-disable-line
 			        .setDescription(`**الرجآء من حضرتك إختيآر رقم المقطع** :
 ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
   
-					.setFooter("Peace Server") 
+					.setFooter("") 
 					.setAuthor(client.user.username, client.user.avatarURL)
 					msg.channel.sendEmbed(embed1).then(message =>{message.delete(20000)})
 					
@@ -104,14 +97,18 @@ ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 			return handleVideo(video, msg, voiceChannel);
 		}  
 	} else if (command === `skip`) {
-    if (!devs.includes(msg.author.id)) return;  
+    let channel = message.guild.member(message.author).roles.find('name' , 'Kin.'); if(!channel) return 
+message.reply('** لاتملك رتبه Vip لفعل ذالك**');
+  
 
 		if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
 		if (!serverQueue) return msg.channel.send('لا يتوفر مقطع لتجآوزه');
 		serverQueue.connection.dispatcher.end('تم تجآوز هذآ المقطع');
 		return undefined;
 	} else if (command === `stop`) {  
-    if (!devs.includes(msg.author.id)) return;  
+    let channel = message.guild.member(message.author).roles.find('name' , 'Kin.'); if(!channel) return 
+message.reply('** لاتملك رتبه Vip لفعل ذالك**');
+  
 
 		if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
 		if (!serverQueue) return msg.channel.send('لا يتوفر مقطع لإيقآفه');
@@ -119,7 +116,9 @@ ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 		serverQueue.connection.dispatcher.end('تم إيقآف هذآ المقطع');
 		return undefined;
 	} else if (command === `vol`) {
-    if (!devs.includes(msg.author.id)) return;  
+    let channel = message.guild.member(message.author).roles.find('name' , 'Kin.'); if(!channel) return 
+message.reply('** لاتملك رتبه Vip لفعل ذالك**');
+  
 
 		if (!msg.member.voiceChannel) return msg.channel.send('أنت لست بروم صوتي .');
 		if (!serverQueue) return msg.channel.send('لا يوجد شيء شغآل.');
@@ -128,14 +127,18 @@ ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
 		serverQueue.connection.dispatcher.setVolumeLogarithmic(args[1] / 50);
 		return msg.channel.send(`:speaker: تم تغير الصوت الي **${args[1]}**`);
 	} else if (command === `np`) {
-    if (!devs.includes(msg.author.id)) return;  
+    let channel = message.guild.member(message.author).roles.find('name' , 'Kin.'); if(!channel) return 
+message.reply('** لاتملك رتبه Vip لفعل ذالك**');
+  
 
 		if (!serverQueue) return msg.channel.send('لا يوجد شيء حالي ف العمل.');
 		const embedNP = new Discord.RichEmbed()
 	.setDescription(`:notes: الان يتم تشغيل : **${serverQueue.songs[0].title}**`)
 		return msg.channel.sendEmbed(embedNP);
 	} else if (command === `queue`) {
-    if (!devs.includes(msg.author.id)) return;  
+    let channel = message.guild.member(message.author).roles.find('name' , 'Kin.'); if(!channel) return 
+message.reply('** لاتملك رتبه Vip لفعل ذالك**');
+  
 
 		  
 		if (!serverQueue) return msg.channel.send('لا يوجد شيء حالي ف العمل.');
@@ -192,7 +195,7 @@ async function handleVideo(video, msg, voiceChannel, playlist = false) {
 		queue.set(msg.guild.id, queueConstruct);
   
 		queueConstruct.songs.push(song);
-  
+  F
 		try {
 			var connection = await voiceChannel.join();
 			queueConstruct.connection = connection;
@@ -231,7 +234,7 @@ function play(guild, song) {
 		.on('error', error => console.error(error));  
 	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);  
 
-	serverQueue.textChannel.send(`PeacePlay :white_check_mark:  : **${song.title}**`);
+	serverQueue.textChannel.send(`بدء تشغيل : **${song.title}**`);
 }  
 
 const adminprefix = "##";  
@@ -259,24 +262,6 @@ if (message.content.startsWith(adminprefix + 't')) {
 }
 
 });
-
-
-client.on('ready',async () => {
-console.log("Starting..");
-let g = client.guilds.get("297638861931282432");
-let c = g.channels.get("517310797278478347");
-if(c.type === 'voice') {
-c.join();
-setInterval(() => {
-if(!g.me.voiceChannel) c.join();
-}, 1);
-} else {
-console.log("Failed To Join:\n The Channel Type isn't \"text\"");
-}
-});
-
-
-
 
 
 
