@@ -7,7 +7,7 @@ const YouTube = require('simple-youtube-api');
 const youtube = new YouTube("AIzaSyAdORXg7UZUo7sePv97JyoDqtQVi3Ll0b8");
 const queue = new Map();
 const client = new Discord.Client();
-const devs = ['521341978659651596','286926707531841536','471755994486013953','281424175271510016','408853086237622273','503509997259587614'];  
+const devs = ['521341978659651596','286926707531841536','471755994486013953','281424175271510016','408853086237622273','503509997259587614','255356214626615306'];  
 /*
 البكجآت
 npm install discord.js
